@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruit CRM Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .signup-form h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .signup-form h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .signup-form p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        input, select {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        input:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .error-message {
+            color: #d9534f;
+            font-size: 12px;
+            display: none;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .captcha {
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            accent-color: #007bff;
+        }
+
+        .checkbox-group label {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-form">
+        <h5 ><img src="./crm.png" alt="" width="210px"></h5>
+        <h2>Ready to join us? Sign up now</h2>
+        <p>Unlimited free trial. No credit card is required.</p>
+        
+        <form id="signupForm">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+            
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" placeholder="Enter the official name of your business" required>
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="+6 characters" required>
+            
+            <label for="timezone">Timezone</label>
+            <select id="timezone" name="timezone" required>
+                <option value="" disabled selected>Select Timezone</option>
+                <option value="UTC">UTC</option>
+                <option value="PST">PST</option>
+                <option value="EST">EST</option>
+            </select>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="agreeTerms" name="agreeTerms">
+                <label for="agreeTerms">I agree to Recruit CRM's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="marketingConsent" name="marketingConsent">
+                <label for="marketingConsent">I would like to receive marketing communication from Recruit CRM for future product updates, services, and events.</label>
+            </div>
+            
+            <div class="captcha" id="captchaSection" style="display: none;">
+                <p id="captchaQuestion"></p>
+                <input type="text" id="captchaAnswer" name="captchaAnswer" placeholder="Enter Answer" required>
+            </div>
+            
+            <button type="submit">Create your account</button>
+        </form>
+        <p><a href="task1.html">Log In</a></p>
+    </div>
+
+    <script>
+        const agreeTerms = document.getElementById('agreeTerms');
+        const marketingConsent = document.getElementById('marketingConsent');
+        const captchaSection = document.getElementById('captchaSection');
+        const captchaQuestion = document.getElementById('captchaQuestion');
+
+        function generateCaptcha() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            captchaQuestion.textContent = `${num1} + ${num2}`;
+            captchaSection.dataset.answer = num1 + num2;
+        }
+
+        function checkCheckboxes() {
+            if (agreeTerms.checked && marketingConsent.checked) {
+                captchaSection.style.display = 'block';
+                generateCaptcha();
+            } else {
+                captchaSection.style.display = 'none';
+            }
+        }
+
+        agreeTerms.addEventListener('change', checkCheckboxes);
+        marketingConsent.addEventListener('change', checkCheckboxes);
+    </script>
+</body>
+</html>
